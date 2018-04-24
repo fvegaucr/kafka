@@ -1,0 +1,18 @@
+
+# Consumer configuration
+# This file is managed by puppet, any change should be done through puppet itself otherwise it will overwrite
+
+bootstrap.servers=<%= scope.lookupvar('kafka_bi::params::consumer_bi_bootstrap').map{|servers| "#{servers}:#{scope.lookupvar('kafka_bi::params::kafka_bi_port')}"}.join(',')%>
+
+group.id=<%=scope.lookupvar('kafka_bi::params::consumer_bi_group_id')%>
+
+receive.buffer.bytes=<%=scope.lookupvar('kafka_bi::params::consumer_bi_receive_buffer_bytes')%>
+send.buffer.bytes=<%=scope.lookupvar('kafka_bi::params::consumer_bi_send_buffer_bytes')%>
+
+key.deserializer=<%=scope.lookupvar('kafka_bi::params::consumer_bi_key_deserializer')%>
+value.deserializer=<%=scope.lookupvar('kafka_bi::params::consumer_bi_value_deserializer')%>
+
+fetch.min.bytes=<%=scope.lookupvar('kafka_bi::params::consumer_bi_fetch_min_bytes')%>
+fetch.max.bytes=<%=scope.lookupvar('kafka_bi::params::consumer_bi_fetch_max_bytes')%>
+fetch.max.wait.ms=<%=scope.lookupvar('kafka_bi::params::consumer_bi_fetch_max_wait_ms')%>
+max.partition.fetch.bytes=<%=scope.lookupvar('kafka_bi::params::consumer_bi_max_partition_fetch_bytes')%>

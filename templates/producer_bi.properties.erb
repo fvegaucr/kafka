@@ -1,0 +1,13 @@
+# Producer configuration
+# This file is managed by puppet, any change should be done through puppet itself otherwise it will overwrite
+
+bootstrap.servers=<%= scope.lookupvar('kafka_bi::params::producer_bi_bootstrap').map{|servers| "#{servers}:#{scope.lookupvar('kafka_bi::params::kafka_bi_port')}"}.join(',')%>
+
+compression.type=<%=scope.lookupvar('kafka_bi::params::producer_bi_compression_type')%>
+acks=<%=scope.lookupvar('kafka_bi::params::producer_bi_acks')%>
+batch.size=<%=scope.lookupvar('kafka_bi::params::producer_bi_batch_size')%>
+linger.ms=<%=scope.lookupvar('kafka_bi::params::producer_bi_linger_ms')%>
+key.serializer=<%=scope.lookupvar('kafka_bi::params::producer_bi_key_serializer')%>
+
+receive.buffer.bytes=<%=scope.lookupvar('kafka_bi::params::producer_bi_receive_buffer_bytes')%>
+send.buffer.bytes=<%=scope.lookupvar('kafka_bi::params::producer_bi_send_buffer_bytes')%>

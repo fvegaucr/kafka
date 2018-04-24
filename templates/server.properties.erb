@@ -1,0 +1,50 @@
+### kafka_bi
+### This file is managed by Puppet.
+###
+### See http://kafka.apache.org/documentation.html#brokerconfigs for default values.
+
+# broker config
+broker.id=<%= scope.lookupvar('kafka_bi::params::broker_id') %>
+port=<%= scope.lookupvar('kafka_bi::params::kafka_bi_broker_port') %>
+log.dirs=<%= scope.lookupvar('kafka_bi::params::log_dirs').join(',') %>
+auto.leader.rebalance.enable=<%= scope.lookupvar('kafka_bi::params::auto_leader_rebalance_enable') %>
+
+
+# Network/Threads
+num.network.threads=<%= scope.lookupvar('kafka_bi::params::num_network_threads') %>
+num.io.threads=<%= scope.lookupvar('kafka_bi::params::num_io_threads') %>
+num.replica.fetchers=<%= scope.lookupvar('kafka_bi::params::num_replica_fetchers') %>
+socket.send.buffer.bytes=<%= scope.lookupvar('kafka_bi::params::socket_send_buffer_bytes') %>
+socket.receive.buffer.bytes=<%= scope.lookupvar('kafka_bi::params::socket_receive_buffer_bytes') %>
+socket.request.max.bytes=<%= scope.lookupvar('kafka_bi::params::socket_request_max_bytes') %>
+receive.buffer.bytes=<%= scope.lookupvar('kafka_bi::params::receive_buffer_bytes') %>
+send.buffer.bytes=<%= scope.lookupvar('kafka_bi::params::send_buffer_bytes') %>
+
+num.recovery.threads.per.data.dir=<%= scope.lookupvar('kafka_bi::params::num_recovery_threads_per_data_dir') %>
+
+# topic
+auto.create.topics.enable=<%= scope.lookupvar('kafka_bi::params::auto_create_topics_enable') %>
+num.partitions=<%= scope.lookupvar('kafka_bi::params::num_partitions') %>
+delete.topic.enable=<%= scope.lookupvar('kafka_bi::params::delete_topic_enable') %>
+offsets.topic.num.partitions=<%= scope.lookupvar('kafka_bi::params::offsets_topic_num_partitions')%>
+
+# replica
+default.replication.factor=<%= scope.lookupvar('kafka_bi::params::default_replication_factor') %>
+
+# log config
+log.retention.hours=<%= scope.lookupvar('kafka_bi::params::log_retention_hours') %>
+log.roll.hours=<%= scope.lookupvar('kafka_bi::params::log_roll_hours') %>
+log.retention.check.interval.ms=<%= scope.lookupvar('kafka_bi::params::log_retention_check_interval_ms')%>
+log.segment.bytes=<%= scope.lookupvar('kafka_bi::params::log_segment_bytes') %>
+
+
+# zookeeper Configuration
+zookeeper.connect=<%= scope.lookupvar('kafka_bi::params::zookeeper_connect').join(',') %><%= scope.lookupvar('kafka_bi::params::zk_chroot') %>
+zookeeper.connection.timeout.ms=<%= scope.lookupvar('kafka_bi::params::zookeeper_connection_timeout_ms') %>
+zookeeper.session.timeout.ms=<%= scope.lookupvar('kafka_bi::params::zookeeper_session_timeout_ms') %>
+
+
+# Additional configuration options may follow here
+<% if scope.lookupvar('kafka_bi::params::config_map') -%><% scope.lookupvar('kafka_bi::params::config_map').sort.each do |key,value| -%>
+<%= key %>=<%= value %>
+<% end -%><% end -%>
